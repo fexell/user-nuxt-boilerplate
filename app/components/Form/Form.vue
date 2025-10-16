@@ -1,9 +1,9 @@
 <script setup>
-  const props = defineProps({
-    fn: {
-      type: Function,
-      required: false,
-      default: () => {},
+  const props                               = defineProps({
+    fn                                      : {
+      type                                  : Function,
+      required                              : false,
+      default                               : () => {},
     },
   })
 </script>

@@ -1,18 +1,18 @@
 
 
 export default defineNuxtPlugin(async ( nuxtApp ) => {
-  const config = useRuntimeConfig()
-  const csrfEndpoint = `${ config.public.apiBase }/csrf`
+  const config                              = useRuntimeConfig()
+  const csrfEndpoint                        = `${ config.public.apiBase }/csrf`
 
   let csrfToken
 
   if( process.client ) {
     try {
-      const { token } = await $fetch(csrfEndpoint, {
-        credentials: 'include',
+      const { token }                       = await $fetch(csrfEndpoint, {
+        credentials                         : 'include',
       })
 
-      csrfToken = token
+      csrfToken                             = token
 
     } catch ( error ) {
       console.warn('Could not fetch CSRF token:', error)
@@ -20,23 +20,23 @@ export default defineNuxtPlugin(async ( nuxtApp ) => {
   }
 
   const apiFetch = $fetch.create({
-    baseURL: config.public.apiBase,
-    credentials: 'include',
+    baseURL                                 : config.public.apiBase,
+    credentials                             : 'include',
 
-    headers: {
-      'Accept': 'application/json',
+    headers                                 : {
+      'Accept'                              : 'application/json',
     },
 
-    onRequest: ({ options }) => {
+    onRequest                               : ({ options }) => {
       if( csrfToken ) {
-        options.headers = {
+        options.headers                     = {
           ...options.headers,
-          'x-csrf-token': csrfToken
+          'x-csrf-token'                    : csrfToken
         }
       }
     },
 
-    onResponseError: ({ response }) => {
+    onResponseError                         : ({ response }) => {
       if( response.status === 403 ) {
         console.warn('CSRF token is invalid or missing.')
       }
@@ -44,8 +44,8 @@ export default defineNuxtPlugin(async ( nuxtApp ) => {
   })
 
   return {
-    provide: {
-      apiFetch: apiFetch,
+    provide                                 : {
+      apiFetch                              : apiFetch,
     }
   }
 })

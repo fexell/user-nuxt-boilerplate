@@ -3,6 +3,7 @@
 <template>
   <main class='w-full min-h-screen max-h-screen'>
     <div class='flex flex-row w-full min-h-screen max-h-screen'>
+
       <!-- LEFT -->
       <div class='flex-1'>
         <div class='flex flex-col justify-center items-center w-full h-full'>
@@ -16,6 +17,7 @@
           <slot name='image' />
         </div>
       </div>
+      
     </div>
   </main>
 </template>

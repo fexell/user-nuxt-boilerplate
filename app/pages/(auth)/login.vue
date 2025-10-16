@@ -2,29 +2,21 @@
   import LoginImage from '~/assets/images/Login.svg'
 
   definePageMeta({
-    layout: false,
+    layout                                  : false,
   })
 
-  const formData = ref({
-    email: '',
-    password: '',
+  const formData                            = ref({
+    email                                   : '',
+    password                                : '',
   })
 
-  const data = new FormData()
+  const data                                = new FormData()
 
   data.append('email', formData.value.email)
   data.append('password', formData.value.password)
 
-  const handleLogin = async () => {
-    try {
-      const response = await $fetch('/api/auth/login', {
-        method: 'POST',
-        body: data,
-      })
-      console.log(response)
-    } catch (error) {
-      console.error('Error during login:', error)
-    }
+  const handleLogin                         = async () => {
+
   }
 </script>
 
@@ -38,9 +30,18 @@
         </div>
       </header>
       <Form>
-        <FormInput name='email' v-model='formData.email' type='email' placeholder='Email' />
-        <FormInput name='password' v-model='formData.password' type='password' placeholder='Password' />
-        <FormButton text='Login' type='submit' />
+        <FormInput
+          name='email'
+          v-model='formData.email'
+          type='email'
+          placeholder='Email'
+          :invalid='/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i' />
+        <FormInput
+          name='password'
+          v-model='formData.password'
+          type='password'
+          placeholder='Password' />
+        <FormButton text='Login' type='submit' :disabled='!formData.email || !formData.password' />
       </Form>
       <footer>
         <div>

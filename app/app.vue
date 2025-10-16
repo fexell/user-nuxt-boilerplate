@@ -1,7 +1,19 @@
 <script setup>
-  
+  const route                               = useRoute()
+
+  const currentLayout                       = computed(() => route.meta.layout || 'default')
 </script>
 
 <template>
-  <NuxtPage />
+  <div>
+    <NuxtLayout>
+      <template v-if="currentLayout !== 'auth'">
+        <NuxtPage />
+      </template>
+
+      <template v-else>
+        
+      </template>
+    </NuxtLayout>
+  </div>
 </template>
