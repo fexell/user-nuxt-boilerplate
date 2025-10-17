@@ -35,11 +35,13 @@
           v-model='formData.email'
           type='email'
           placeholder='Email'
+          icon='at'
           :invalid='/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i' />
         <FormInput
           name='password'
           v-model='formData.password'
           type='password'
+          icon='lock'
           placeholder='Password' />
         <FormButton text='Login' type='submit' :disabled='!formData.email || !formData.password' />
       </Form>
