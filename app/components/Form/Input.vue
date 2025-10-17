@@ -37,7 +37,10 @@
   <div class='block relative'>
     <div v-if='props.icon' class='absolute left-6 top-1/2 transform -translate-y-1/2'>
       <div>
-        <font-awesome :icon='props.icon' />
+        <font-awesome
+          :icon='props.icon'
+          class='text-neutral-500'
+          :class='[ ( touched && props.invalid && !props.invalid.test( props.modelValue ) ) ? "text-red-600" : "" ]' />
       </div>
     </div>
     <input
