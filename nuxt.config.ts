@@ -4,17 +4,29 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/fonts', '@nuxt/image', '@vesp/nuxt-fontawesome'],
-  css: ['@/assets/css/main.css'],
+  modules: [
+    '@nuxt/fonts',
+    '@nuxt/image',
+    '@vesp/nuxt-fontawesome',
+    '@pinia/nuxt'
+  ],
+  css: [
+    '@/assets/css/main.css'
+  ],
   vite: {
     plugins: [
       tailwindcss(),
     ],
   },
+  pinia: {
+    storesDirs: [
+      './app/stores/**',
+    ],
+  },
   runtimeConfig: {
     public: {
-      apiBase: 'http://localhost:5000/api'
-    }
+      apiBase: 'http://localhost:5000/api',
+    },
   },
   fontawesome: {
     icons: {
