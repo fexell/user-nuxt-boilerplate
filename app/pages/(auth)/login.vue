@@ -15,11 +15,7 @@
   const data                                = new FormData()
   data.append('email', formData.value.email)
   data.append('password', formData.value.password)
-
-  onBeforeMount(() => {
-    formData.email                          = localStorage.getItem( 'email' )
-  })
-
+  
   const handleLogin                         = async () => {
     try {
       const response                        = await $apiFetch( '/auth/login', { method: 'POST', body: data } )
