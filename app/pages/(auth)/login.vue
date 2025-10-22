@@ -16,7 +16,7 @@
   data.append('password', formData.value.password)
 
   const handleLogin                         = async () => {
-
+    console.log(data)
   }
 </script>
 
@@ -29,7 +29,7 @@
           <h3 class='text-lg text-center'>Fill in the form to log in</h3>
         </div>
       </header>
-      <Form>
+      <Form :fn='handleLogin'>
         <FormInput
           name='email'
           v-model='formData.email'
