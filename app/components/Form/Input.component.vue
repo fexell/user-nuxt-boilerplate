@@ -31,6 +31,11 @@
       required                              : false,
       default                               : false,
     },
+    title                                   : {
+      type                                  : String,
+      required                              : false,
+      default                               : '',
+    }
   })
 
   const inputValue                          = ref( props.modelValue )
@@ -84,6 +89,7 @@
       :value='props.modelValue'
       :placeholder='props.placeholder'
       :name='props.name'
+      :title='props.title ? props.title : props.name.charAt( 0 ).toUpperCase() + props.name.slice( 1 ).toLowerCase()'
       @input='handleOnInput'
       @blur='touched = true' />
   </div>

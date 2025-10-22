@@ -33,6 +33,9 @@ export default defineNuxtConfig({
       solid: [
         'at',
         'lock',
+        'user',
+        'circle-user',
+        'signature',
       ],
     },
   },

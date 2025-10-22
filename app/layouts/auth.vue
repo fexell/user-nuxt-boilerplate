@@ -1,6 +1,4 @@
 <script setup>
-  import authMiddleware from '~/middleware/auth'
-
   defineProps({
     title                                   : {
       type                                  : String,
@@ -14,15 +12,15 @@
       type                                  : String,
       required                              : true,
     },
+    footerTo                                : {
+      type                                  : String,
+      required                              : true,
+    },
     footerLinkText                          : {
       type                                  : String,
       required                              : true,
     },
   })
-
-  const route                               = useRoute()
-
-  await authMiddleware( route, null )
 </script>
 
 <template>
@@ -45,7 +43,7 @@
           </section>
           <footer>
             <div>
-              <p class='text-center'>{{ footerText }} <NuxtLink to='/signup' class='text-blue-600 hover:underline'>{{ footerLinkText }}</NuxtLink></p>
+              <p class='text-center'>{{ footerText }} <NuxtLink :to='footerTo' class='text-blue-600 hover:underline'>{{ footerLinkText }}</NuxtLink></p>
             </div>
           </footer>
         </div>

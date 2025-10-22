@@ -43,9 +43,25 @@ export default defineNuxtPlugin(async ( nuxtApp ) => {
     },
   })
 
+  const rawApiFetch                         = apiFetch
+  const wrappedApiFetch                     = async ( ...args ) => {
+    try {
+      return await rawApiFetch( ...args )
+    } catch ( error ) {
+      const serverMessage                   = error?.data?.message
+        ?? error?.response?._data?.message
+        ?? null
+      const message                         = serverMessage ?? error?.message ?? 'An unexpected error occured'
+      const e                               = new Error( message )
+      e.originalError                       = error
+
+      throw e
+    }
+  }
+
   return {
     provide                                 : {
-      apiFetch                              : apiFetch,
+      apiFetch                              : wrappedApiFetch,
     }
   }
 })

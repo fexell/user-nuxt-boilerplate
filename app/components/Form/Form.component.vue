@@ -9,7 +9,7 @@
 </script>
 
 <template>
-  <div class='w-[500px]'>
+  <div class='w-[500px] px-4'>
     <form @submit.prevent='props.fn'>
       <slot />
     </form>

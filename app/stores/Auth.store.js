@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-import { useCookie } from '#app'
 
-export const useAuthStore                   = defineStore('auth', () => {
-  const userIdCookie                        = useCookie('userId')
-  const userId                              = userIdCookie
+import { useReactiveCookie } from '#imports'
+
+export const useAuthStore                   = defineStore( 'auth', () => {
+  const userId                              = useReactiveCookie( 'userId' ) || null
 
   const setUserId                           = ( value ) => userId.value = value
 
