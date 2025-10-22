@@ -1,6 +1,4 @@
 <script setup>
-  import authMiddleware from '~/middleware/auth'
-
   defineProps({
     title                                   : {
       type                                  : String,
