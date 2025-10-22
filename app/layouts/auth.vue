@@ -19,10 +19,6 @@
       required                              : true,
     },
   })
-
-  const route                               = useRoute()
-
-  //await authMiddleware( route, null )
 </script>
 
 <template>
