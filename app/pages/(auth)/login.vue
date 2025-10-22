@@ -1,5 +1,9 @@
 <script setup>
+  import { useCookie } from '#app'
+
   import LoginImage from '~/assets/images/Login.svg'
+
+  const { $apiFetch }                       = useNuxtApp()
 
   definePageMeta({
     layout                                  : false,
@@ -9,47 +13,55 @@
     email                                   : '',
     password                                : '',
   })
-
-  const data                                = new FormData()
-
-  data.append('email', formData.value.email)
-  data.append('password', formData.value.password)
-
+  
   const handleLogin                         = async () => {
-    console.log(data)
+    const auth                              = useAuthStore()
+
+    try {
+      const data                                = new FormData()
+      data.append( 'email', formData.value.email )
+      data.append( 'password', formData.value.password )
+
+      const response                        = await $apiFetch( '/auth/login', { method: 'POST', body: data } )
+    } catch ( error ) {
+      console.warn( error.message )
+    }
+  }
+
+  const handleLogout                        = async () => {
+    try {
+      await $apiFetch( '/auth/logout', { method: 'POST' } )
+    } catch ( error ) {
+      console.warn( error.message )
+    }
   }
 </script>
 
 <template>
-  <NuxtLayout name='auth'>
+  <NuxtLayout
+  name='auth'
+  title='Welcome back!'
+  subtitle='Fill in the form to log in'
+  footerText="Don't have an account?"
+  footerLinkText='Sign up.'>
     <template #form>
-      <header class='mb-4'>
-        <div>
-          <h1 class='text-4xl text-center'>Welcome back!</h1>
-          <h3 class='text-lg text-center'>Fill in the form to log in</h3>
-        </div>
-      </header>
-      <Form :fn='handleLogin'>
-        <FormInput
+      <FormComponent :fn='handleLogin'>
+        <FormInputComponent
           name='email'
           v-model='formData.email'
           type='email'
           placeholder='Email'
           icon='at'
-          :invalid='/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i' />
-        <FormInput
+          :invalid='/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i'
+          :remember='true' />
+        <FormInputComponent
           name='password'
           v-model='formData.password'
           type='password'
           icon='lock'
           placeholder='Password' />
-        <FormButton text='Login' type='submit' :disabled='!formData.email || !formData.password' />
-      </Form>
-      <footer>
-        <div>
-          <p class='text-center'>Don't have an account? <NuxtLink to='/signup' class='text-blue-600 hover:underline'>Sign up</NuxtLink></p>
-        </div>
-      </footer>
+        <FormButtonComponent text='Login' type='submit' :disabled='!formData.email || !formData.password' />
+      </FormComponent>
     </template>
     <template #image>
       <img :src='LoginImage' class='w-xl' />
